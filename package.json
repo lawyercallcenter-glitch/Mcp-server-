@@ -1,0 +1,27 @@
+{
+  "name": "mcp-server-",
+  "version": "1.0.0",
+  "description": "Base44 mcp server # Mcp-server-",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "npm run check",
+    "start": "node src/server.js",
+    "check": "node --check src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lawyercallcenter-glitch/Mcp-server-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/lawyercallcenter-glitch/Mcp-server-/issues"
+  },
+  "homepage": "https://github.com/lawyercallcenter-glitch/Mcp-server-#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.4.3"
+  }
+}
