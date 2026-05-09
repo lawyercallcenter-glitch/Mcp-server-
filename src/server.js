@@ -26,9 +26,9 @@ server.registerTool(
   "sync_status",
   {
     description: "Returns basic sync status details",
-    inputSchema: {
+    inputSchema: z.object({
       source: z.string().optional()
-    }
+    })
   },
   async ({ source }) => ({
     content: [

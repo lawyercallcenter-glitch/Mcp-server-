@@ -1,7 +1,7 @@
 {
-  "name": "mcp-server-",
+  "name": "lawyercallcenter-mcp-server",
   "version": "1.0.0",
-  "description": "Base44 mcp server # Mcp-server-",
+  "description": "Base44 MCP server",
   "main": "src/server.js",
   "scripts": {
     "test": "npm run check",
