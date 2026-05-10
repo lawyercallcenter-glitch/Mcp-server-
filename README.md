@@ -22,8 +22,8 @@ Official MCP (Model Context Protocol) server for ListSnap, built with the `@mode
    - **Start Command:** `npm start`
    - **Node Version:** `20`
 4. Add environment variables:
-   - `BASE44_APP_ID` — your Base44 app ID
-   - `BASE44_API_KEY` — your Base44 API key
+   - `BASE44_APP_ID` — 69ecff09a44dbd93e2591f2b
+   - `BASE44_API_KEY` — 8877a5993f354a10bc673fb00ec95761
 5. Deploy!
 
 ## Connect to Claude Desktop
