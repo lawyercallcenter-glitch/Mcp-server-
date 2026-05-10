@@ -1,83 +1,52 @@
-# Base44 MCP Server (SSE)
+# ListSnap MCP Server v2
 
-This repository contains a small Node.js server intended to be added to **Base44 → Settings → MCP connections**.
+Official MCP (Model Context Protocol) server for ListSnap, built with the `@modelcontextprotocol/sdk`.
 
-Base44 expects a server URL like:
+## Tools
 
-- `https://<your-host>/sse`
+| Tool | Description |
+|------|-------------|
+| `list_inventory` | List all items, optionally filtered by status |
+| `search_inventory` | Search items by keyword (title, brand, model) |
+| `get_item` | Get a single item by ID |
+| `create_item` | Create a new inventory item |
+| `update_item` | Update an existing item |
+| `delete_item` | Delete an item by ID |
 
-> Important: the `/sse` endpoint must be publicly reachable.
+## Deploy to Render
 
-## Endpoints
-
-- `GET /` health check
-- `GET /sse` SSE stream (this is the URL you paste into Base44)
-- `POST /tools/ping` helper endpoint for quick testing
-
-## Authentication (recommended)
-
-This server supports an optional shared secret:
-
-- Set environment variable: `MCP_TOKEN`
-- Then Base44 (and any client) must send:
-  - `Authorization: Bearer <MCP_TOKEN>`
-
-If `MCP_TOKEN` is **not** set, the server allows unauthenticated requests.
-
-## Run locally
-
-```bash
-npm install
-MCP_TOKEN=changeme npm start
-```
-
-Test locally:
-
-```bash
-curl -i http://localhost:7331/
-curl -i -H "Authorization: Bearer changeme" http://localhost:7331/sse
-
-curl -i \
-  -H "Authorization: Bearer changeme" \
-  -H "Content-Type: application/json" \
-  -d '{"message":"hello"}' \
-  http://localhost:7331/tools/ping
-```
-
-## Deploy on Render (recommended)
-
-1. Go to **Render Dashboard → New + → Web Service**
-2. Connect GitHub and select this repository
-3. Use:
-   - **Environment:** Node
+1. Push these files to your GitHub repo root
+2. Render → **New Web Service** → connect repo
+3. Settings:
    - **Build Command:** `npm install`
    - **Start Command:** `npm start`
-4. Add environment variable:
-   - `MCP_TOKEN` = a long random secret
-5. Deploy
+   - **Node Version:** `20`
+4. Add environment variables:
+   - `BASE44_APP_ID` — your Base44 app ID
+   - `BASE44_API_KEY` — your Base44 API key
+5. Deploy!
 
-After deploy, Render will show a URL like:
+## Connect to Claude Desktop
 
-- `https://your-service.onrender.com`
+Add to `claude_desktop_config.json`:
 
-Your Base44 MCP URL will be:
+```json
+{
+  "mcpServers": {
+    "listsnap": {
+      "url": "https://mcp-server-mo5g.onrender.com/sse"
+    }
+  }
+}
+```
 
-- `https://your-service.onrender.com/sse`
+**Mac:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
-## Configure Base44
+Then fully quit and restart Claude Desktop.
 
-Base44 → Settings → MCP connections → Add custom MCP
+## Health Check
 
-- **URL:** `https://your-service.onrender.com/sse`
-- **Authentication:** Not required (we're using a header)
-- **Custom header:**
-  - Name: `Authorization`
-  - Value: `Bearer <MCP_TOKEN>`
-
-Click **Test**.
-
-## If Base44 Test fails
-
-Copy/paste the exact Base44 error message.
-
-Some MCP clients expect a specific MCP-over-SSE protocol framing beyond a basic SSE stream. If Base44 requires that, we'll update this server accordingly.
+```
+GET https://mcp-server-mo5g.onrender.com/health
+```
